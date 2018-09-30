@@ -1,9 +1,6 @@
 <?php
-function __autoload($class)
-{
-    require_once "src/$class.php";
-}
-
+require_once "decorator.php";
+require_once "singleton.php";
 $hello = new Hello();
 $addstrong = new AddStrong($hello);
 $addWorld = new AddWorld($addstrong);
