@@ -1,0 +1,15 @@
+{
+  "name": "timur/design-patterns",
+  "authors": [
+    {
+      "name": "Timur Melnikov",
+      "email": "melnikovt@gmail.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "app\\": "app"
+    }
+  }
+}
