@@ -11,6 +11,7 @@ var_dump($door);
 $door->setHeight(12.3);
 $door->setWidth(12.76);
 var_dump($door);
+
 echo '<hr/>Фабричный метод (factory_method):<br/>';
 $devManager = new DevelopmentManager();
 $devManager->takeInterview(); // Output: Спрашивает о шаблонах проектирования.

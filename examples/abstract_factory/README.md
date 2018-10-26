@@ -1,62 +1,105 @@
-## Простая фабрика
+## Абстрактная фабрика
 
 ### Аналогия
 
-Допустим, вы строите дом и вам нужны двери. Будет бардак, если каждый раз, когда вам требуется дверь, вы станете вооружаться инструментами и делать её на стройплощадке. Вместо этого вы закажете двери на фабрике.
+
+Вернёмся к примеру с дверями из «Простой фабрики». В зависимости от своих потребностей вы можете купить деревянную дверь в одном магазине, стальную — в другом, пластиковую — в третьем. Для монтажа вам понадобятся разные специалисты: деревянной двери нужен плотник, стальной — сварщик, пластиковой — спец по ПВХ-профилям.
+
 
 ### Вкратце
+Это фабрика фабрик. То есть фабрика, группирующая индивидуальные, но взаимосвязанные/взаимозависимые фабрики без указания для них конкретных классов.
 
-Простая фабрика просто генерирует экземпляр для клиента без предоставления какой-либо логики экземпляра.
 
 ### Википедия
 
-В объектно ориентированном программировании фабрикой называется объект, создающий другие объекты. Формально фабрика — это функция или метод, возвращающая объекты разных прототипов или классов из вызова какого-то метода, который считается новым.
 
-
+Шаблон «Абстрактная фабрика» описывает способ инкапсулирования группы индивидуальных фабрик, объединённых некой темой, без указания для них конкретных классов.
 ### Пример
 
 
-Для начала нам нужен интерфейс двери и его реализация.
-
+Создадим интерфейс Door и несколько реализаций для него.
 ```php
-
 interface Door
 {
-    public function getWidth(): float;
-    public function getHeight(): float;
+    public function getDescription();
 }
 
 class WoodenDoor implements Door
 {
-    protected $width;
-    protected $height;
-
-    public function __construct(float $width, float $height)
+    public function getDescription()
     {
-        $this->width = $width;
-        $this->height = $height;
+        echo 'I am a wooden door';
     }
+}
 
-    public function getWidth(): float
+class IronDoor implements Door
+{
+    public function getDescription()
     {
-        return $this->width;
-    }
-
-    public function getHeight(): float
-    {
-        return $this->height;
+        echo 'I am an iron door';
     }
 }
 ```
 
-Теперь соорудим фабрику дверей, которая создаёт и возвращает нам двери
+Теперь нам нужны специалисты по установке каждого вида дверей.
 
 ```php
-class DoorFactory
+interface DoorFittingExpert
 {
-    public static function makeDoor($width, $height): Door
+    public function getDescription();
+}
+
+class Welder implements DoorFittingExpert
+{
+    public function getDescription()
     {
-        return new WoodenDoor($width, $height);
+        echo 'I can only fit iron doors';
+    }
+}
+
+class Carpenter implements DoorFittingExpert
+{
+    public function getDescription()
+    {
+        echo 'I can only fit wooden doors';
+    }
+}
+```
+
+Мы получили абстрактную фабрику, которая позволяет создавать семейства объектов или взаимосвязанные объекты. То есть фабрика деревянных дверей создаст деревянную дверь и человека для её монтажа, фабрика стальных дверей — стальную дверь и соответствующего специалиста и т. д.
+
+```php
+interface DoorFactory
+{
+    public function makeDoor(): Door;
+    public function makeFittingExpert(): DoorFittingExpert;
+}
+
+// Фабрика деревянных дверей возвращает плотника и деревянную дверь
+class WoodenDoorFactory implements DoorFactory
+{
+    public function makeDoor(): Door
+    {
+        return new WoodenDoor();
+    }
+
+    public function makeFittingExpert(): DoorFittingExpert
+    {
+        return new Carpenter();
+    }
+}
+
+// Фабрика стальных дверей возвращает стальную дверь и сварщика
+class IronDoorFactory implements DoorFactory
+{
+    public function makeDoor(): Door
+    {
+        return new IronDoor();
+    }
+
+    public function makeFittingExpert(): DoorFittingExpert
+    {
+        return new Welder();
     }
 }
 ```
@@ -64,12 +107,28 @@ class DoorFactory
 Использование:
 
 ```php
-$door = DoorFactory:makeDoor(100, 200);
-echo 'Width: ' . $door->getWidth();
-echo 'Height: ' . $door->getHeight();
+$woodenFactory = new WoodenDoorFactory();
+
+$door = $woodenFactory->makeDoor();
+$expert = $woodenFactory->makeFittingExpert();
+
+$door->getDescription();  // Output: Я деревянная дверь
+$expert->getDescription(); // Output: Я могу устанавливать только деревянные двери
+
+// Same for Iron Factory
+$ironFactory = new IronDoorFactory();
+
+$door = $ironFactory->makeDoor();
+$expert = $ironFactory->makeFittingExpert();
+
+$door->getDescription();  // Output: Я стальная дверь
+$expert->getDescription(); // Output: Я могу устанавливать только стальные двери
 ```
+
+Здесь фабрика деревянных дверей инкапсулировала carpenter и wooden door, фабрика стальных дверей — iron door and welder. То есть можно быть уверенными, что для каждой из созданных дверей мы получим правильного специалиста.
+
 
 ### Когда использовать?
 
 
-Когда создание объекта подразумевает какую-то логику, а не просто несколько присваиваний, то имеет смысл делегировать задачу выделенной фабрике, а не повторять повсюду один и тот же код.
+Когда у вас есть взаимосвязи с не самой простой логикой создания (creation logic).
