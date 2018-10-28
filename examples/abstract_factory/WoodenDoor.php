@@ -9,7 +9,11 @@
 namespace examples\abstract_factory;
 
 
-class WoodenDoor
+class WoodenDoor implements Door
 {
 
+    public function getDescription(): void
+    {
+        echo 'I am a wooden door';
+    }
 }

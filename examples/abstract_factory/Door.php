@@ -11,5 +11,6 @@ namespace examples\abstract_factory;
 
 interface Door
 {
+    public function getDescription();
 
 }

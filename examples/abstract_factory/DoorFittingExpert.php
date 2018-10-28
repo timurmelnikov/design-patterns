@@ -11,5 +11,5 @@ namespace examples\abstract_factory;
 
 interface DoorFittingExpert
 {
-
+    public function getDescription();
 }

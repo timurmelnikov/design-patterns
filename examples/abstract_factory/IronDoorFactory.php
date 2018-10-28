@@ -9,7 +9,15 @@
 namespace examples\abstract_factory;
 
 
-class IronDoorFactory
+class IronDoorFactory implements DoorFactory
 {
+    public function makeDoor(): Door
+    {
+        return new IronDoor();
+    }
 
+    public function makeFittingExpert(): DoorFittingExpert
+    {
+        return new Welder();
+    }
 }
