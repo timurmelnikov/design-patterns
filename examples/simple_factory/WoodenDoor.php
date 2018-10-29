@@ -33,15 +33,4 @@ class WoodenDoor implements Door
     }
 
 
-    public function setWidth($width): void
-    {
-        $this->width = $width;
-    }
-
-    public function setHeight($height): void
-    {
-        $this->height = $height;
-    }
-
-
 }

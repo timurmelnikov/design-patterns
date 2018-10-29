@@ -14,8 +14,4 @@ interface Door
     public function getWidth(): float;
 
     public function getHeight(): float;
-
-    public function setWidth($width): void;
-
-    public function setHeight($height): void;
 }

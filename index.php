@@ -3,6 +3,7 @@ require_once 'vendor/autoload.php';
 
 use examples\abstract_factory\IronDoorFactory;
 use examples\abstract_factory\WoodenDoorFactory;
+use examples\builder\BurgerBuilder;
 use examples\factory_method\DevelopmentManager;
 use examples\factory_method\MarketingManager;
 use examples\simple_factory\DoorFactory;
@@ -10,9 +11,6 @@ use examples\simple_factory\DoorFactory;
 
 echo 'Простая фабрика (simple_factory):<br/>';
 $door = DoorFactory::makeDoor(10, 11);
-var_dump($door);
-$door->setHeight(12.3);
-$door->setWidth(12.76);
 var_dump($door);
 
 echo '<hr/>Фабричный метод (factory_method):<br/>';
@@ -34,3 +32,9 @@ $door = $ironFactory->makeDoor();
 $expert = $ironFactory->makeFittingExpert();
 $door->getDescription();  // Output: Я стальная дверь
 $expert->getDescription(); // Output: Я могу устанавливать только стальные двери
+
+echo '<hr/>Строитель (builder):<br/>';
+$burger = (new BurgerBuilder(2))
+    ->addCheese()
+    ->build();
+var_dump($burger);
