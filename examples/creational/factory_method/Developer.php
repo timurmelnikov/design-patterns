@@ -6,7 +6,7 @@
  * Time: 13:42
  */
 
-namespace examples\factory_method;
+namespace examples\creational\factory_method;
 
 
 class Developer implements Interviewer

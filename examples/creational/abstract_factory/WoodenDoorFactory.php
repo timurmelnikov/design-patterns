@@ -6,7 +6,7 @@
  * Time: 15:13
  */
 
-namespace examples\abstract_factory;
+namespace examples\creational\abstract_factory;
 
 
 class WoodenDoorFactory implements DoorFactory

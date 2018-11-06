@@ -6,7 +6,7 @@
  * Time: 13:45
  */
 
-namespace examples\factory_method;
+namespace examples\creational\factory_method;
 
 
 class CommunityExecutive implements Interviewer

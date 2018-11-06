@@ -6,7 +6,7 @@
  * Time: 10:37
  */
 
-namespace examples\builder;
+namespace examples\creational\builder;
 
 
 class BurgerBuilder

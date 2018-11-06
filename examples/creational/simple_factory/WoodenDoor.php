@@ -6,7 +6,7 @@
  * Time: 12:47
  */
 
-namespace examples\simple_factory;
+namespace examples\creational\simple_factory;
 
 
 class WoodenDoor implements Door

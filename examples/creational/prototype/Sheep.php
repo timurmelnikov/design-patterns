@@ -6,7 +6,7 @@
  * Time: 12:15
  */
 
-namespace examples\prototype;
+namespace examples\creational\prototype;
 
 
 class Sheep

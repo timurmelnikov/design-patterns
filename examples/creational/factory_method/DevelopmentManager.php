@@ -3,17 +3,17 @@
  * Created by PhpStorm.
  * User: timur
  * Date: 25.10.18
- * Time: 13:51
+ * Time: 13:50
  */
 
-namespace examples\factory_method;
+namespace examples\creational\factory_method;
 
 
-class MarketingManager extends HiringManager
+class DevelopmentManager extends HiringManager
 {
 
     public function makeInterviewer(): Interviewer
     {
-        return new CommunityExecutive();
+        return new Developer();
     }
 }

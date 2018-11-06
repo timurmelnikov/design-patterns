@@ -6,7 +6,7 @@
  * Time: 15:06
  */
 
-namespace examples\abstract_factory;
+namespace examples\creational\abstract_factory;
 
 
 class IronDoor implements Door

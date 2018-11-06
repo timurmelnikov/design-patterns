@@ -6,7 +6,7 @@
  * Time: 15:12
  */
 
-namespace examples\abstract_factory;
+namespace examples\creational\abstract_factory;
 
 
 interface DoorFactory

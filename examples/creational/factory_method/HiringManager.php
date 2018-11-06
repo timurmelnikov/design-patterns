@@ -6,7 +6,7 @@
  * Time: 13:47
  */
 
-namespace examples\factory_method;
+namespace examples\creational\factory_method;
 
 
 abstract class HiringManager

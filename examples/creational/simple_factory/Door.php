@@ -6,7 +6,7 @@
  * Time: 12:44
  */
 
-namespace examples\simple_factory;
+namespace examples\creational\simple_factory;
 
 
 interface Door

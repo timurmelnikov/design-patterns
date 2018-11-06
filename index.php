@@ -1,13 +1,13 @@
 <?php
 require_once 'vendor/autoload.php';
 
-use examples\abstract_factory\IronDoorFactory;
-use examples\abstract_factory\WoodenDoorFactory;
-use examples\builder\BurgerBuilder;
-use examples\factory_method\DevelopmentManager;
-use examples\factory_method\MarketingManager;
-use examples\prototype\Sheep;
-use examples\simple_factory\DoorFactory;
+use examples\creational\abstract_factory\IronDoorFactory;
+use examples\creational\abstract_factory\WoodenDoorFactory;
+use examples\creational\builder\BurgerBuilder;
+use examples\creational\factory_method\DevelopmentManager;
+use examples\creational\factory_method\MarketingManager;
+use examples\creational\prototype\Sheep;
+use examples\creational\simple_factory\DoorFactory;
 
 
 echo 'Простая фабрика (simple_factory):<br/>';
