@@ -8,6 +8,7 @@ use examples\creational\factory_method\DevelopmentManager;
 use examples\creational\factory_method\MarketingManager;
 use examples\creational\prototype\Sheep;
 use examples\creational\simple_factory\DoorFactory;
+use examples\creational\singleton\President;
 
 
 echo 'Простая фабрика (simple_factory):<br/>';
@@ -51,3 +52,9 @@ $cloned->setName('Dolly');
 echo $cloned->getName(); // Долли
 echo '<br/>';
 echo $cloned->getCategory(); // Горная овечка
+
+
+echo '<hr/>Одиночка (singleton):<br/>';
+$president1 = President::getInstance();
+$president2 = President::getInstance();
+var_dump($president1 === $president2); // true
