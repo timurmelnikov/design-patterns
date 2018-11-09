@@ -9,7 +9,9 @@ use examples\creational\factory_method\MarketingManager;
 use examples\creational\prototype\Sheep;
 use examples\creational\simple_factory\DoorFactory;
 use examples\creational\singleton\President;
-
+use examples\structural\adapter\Hunter;
+use examples\structural\adapter\WildDog;
+use examples\structural\adapter\WildDogAdapter;
 
 echo 'Простая фабрика (simple_factory):<br/>';
 $door = DoorFactory::makeDoor(10, 11);
@@ -26,13 +28,13 @@ echo '<hr/>Абстрактная фабрика (abstract_factory):<br/>';
 $woodenFactory = new WoodenDoorFactory();
 $door = $woodenFactory->makeDoor();
 $expert = $woodenFactory->makeFittingExpert();
-$door->getDescription();  // Output: Я деревянная дверь
+$door->getDescription(); // Output: Я деревянная дверь
 $expert->getDescription(); // Output: Я могу устанавливать только деревянные двери
 echo '<br/>';
 $ironFactory = new IronDoorFactory();
 $door = $ironFactory->makeDoor();
 $expert = $ironFactory->makeFittingExpert();
-$door->getDescription();  // Output: Я стальная дверь
+$door->getDescription(); // Output: Я стальная дверь
 $expert->getDescription(); // Output: Я могу устанавливать только стальные двери
 
 echo '<hr/>Строитель (builder):<br/>';
@@ -53,8 +55,14 @@ echo $cloned->getName(); // Долли
 echo '<br/>';
 echo $cloned->getCategory(); // Горная овечка
 
-
 echo '<hr/>Одиночка (singleton):<br/>';
 $president1 = President::getInstance();
 $president2 = President::getInstance();
 var_dump($president1 === $president2); // true
+
+echo '<hr/>Адаптер (adapter):<br/>';
+$wildDog = new WildDog();
+$wildDogAdapter = new WildDogAdapter($wildDog);
+
+$hunter = new Hunter();
+$hunter->hunt($wildDogAdapter);
