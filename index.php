@@ -12,6 +12,9 @@ use examples\creational\singleton\President;
 use examples\structural\adapter\Hunter;
 use examples\structural\adapter\WildDog;
 use examples\structural\adapter\WildDogAdapter;
+use examples\structural\bridge\About;
+use examples\structural\bridge\Careers;
+use examples\structural\bridge\DarkTheme;
 
 echo 'Простая фабрика (simple_factory):<br/>';
 $door = DoorFactory::makeDoor(10, 11);
@@ -66,3 +69,13 @@ $wildDogAdapter = new WildDogAdapter($wildDog);
 
 $hunter = new Hunter();
 $hunter->hunt($wildDogAdapter);
+
+echo '<hr/>Мост (bridge):<br/>';
+$darkTheme = new DarkTheme();
+
+$about = new About($darkTheme);
+$careers = new Careers($darkTheme);
+
+echo $about->getContent(); // "About page in Dark Black";
+echo '<br/>';
+echo $careers->getContent(); // "Careers page in Dark Black";
