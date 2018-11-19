@@ -15,6 +15,9 @@ use examples\structural\adapter\WildDogAdapter;
 use examples\structural\bridge\About;
 use examples\structural\bridge\Careers;
 use examples\structural\bridge\DarkTheme;
+use examples\structural\composite\Designer;
+use examples\structural\composite\Developer;
+use examples\structural\composite\Organization;
 
 echo 'Простая фабрика (simple_factory):<br/>';
 $door = DoorFactory::makeDoor(10, 11);
@@ -79,3 +82,15 @@ $careers = new Careers($darkTheme);
 echo $about->getContent(); // "About page in Dark Black";
 echo '<br/>';
 echo $careers->getContent(); // "Careers page in Dark Black";
+
+echo '<hr/>Компоновщик (composite):<br/>';
+// Подготовка сотрудников
+$john = new Developer('John Doe', 12000);
+$jane = new Designer('Jane Doe', 15000);
+
+// Включение их в штат
+$organization = new Organization();
+$organization->addEmployee($john);
+$organization->addEmployee($jane);
+
+echo "Net salaries: " . $organization->getNetSalaries(); // Net Salaries: 27000
