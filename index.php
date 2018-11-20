@@ -18,6 +18,10 @@ use examples\structural\bridge\DarkTheme;
 use examples\structural\composite\Designer;
 use examples\structural\composite\Developer;
 use examples\structural\composite\Organization;
+use examples\structural\decorator\MilkCoffee;
+use examples\structural\decorator\SimpleCoffee;
+use examples\structural\decorator\VanillaCoffee;
+use examples\structural\decorator\WhipCoffee;
 
 echo 'Простая фабрика (simple_factory):<br/>';
 $door = DoorFactory::makeDoor(10, 11);
@@ -94,3 +98,28 @@ $organization->addEmployee($john);
 $organization->addEmployee($jane);
 
 echo "Net salaries: " . $organization->getNetSalaries(); // Net Salaries: 27000
+
+
+echo '<hr/>Декоратор (decorator):<br/>';
+$someCoffee = new SimpleCoffee();
+echo $someCoffee->getCost(); // 10
+echo '<br/>';
+echo $someCoffee->getDescription(); // Simple Coffee
+echo '<br/>';
+
+$someCoffee = new MilkCoffee($someCoffee);
+echo $someCoffee->getCost(); // 12
+echo '<br/>';
+echo $someCoffee->getDescription(); // Simple Coffee, milk
+echo '<br/>';
+
+$someCoffee = new WhipCoffee($someCoffee);
+echo $someCoffee->getCost(); // 17
+echo '<br/>';
+echo $someCoffee->getDescription(); // Simple Coffee, milk, whip
+echo '<br/>';
+
+$someCoffee = new VanillaCoffee($someCoffee);
+echo $someCoffee->getCost(); // 20
+echo '<br/>';
+echo $someCoffee->getDescription(); // Simple Coffee, milk, whip, vanilla
