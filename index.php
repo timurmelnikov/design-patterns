@@ -22,6 +22,8 @@ use examples\structural\decorator\MilkCoffee;
 use examples\structural\decorator\SimpleCoffee;
 use examples\structural\decorator\VanillaCoffee;
 use examples\structural\decorator\WhipCoffee;
+use examples\structural\facade\Computer;
+use examples\structural\facade\ComputerFacade;
 
 echo 'Простая фабрика (simple_factory):<br/>';
 $door = DoorFactory::makeDoor(10, 11);
@@ -123,3 +125,10 @@ $someCoffee = new VanillaCoffee($someCoffee);
 echo $someCoffee->getCost(); // 20
 echo '<br/>';
 echo $someCoffee->getDescription(); // Simple Coffee, milk, whip, vanilla
+
+
+echo '<hr/>Фасад (facade):<br/>';
+$computer = new ComputerFacade(new Computer());
+$computer->turnOn();
+echo '<br/>';
+$computer->turnOff();
