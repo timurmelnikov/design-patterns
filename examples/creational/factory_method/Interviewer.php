@@ -11,8 +11,7 @@ namespace examples\creational\factory_method;
 
 interface Interviewer
 {
-public function askQuestions();
-
+    public function askQuestions();
 
 
 }

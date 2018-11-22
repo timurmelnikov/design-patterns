@@ -24,6 +24,8 @@ use examples\structural\decorator\VanillaCoffee;
 use examples\structural\decorator\WhipCoffee;
 use examples\structural\facade\Computer;
 use examples\structural\facade\ComputerFacade;
+use examples\structural\flyweight\TeaMaker;
+use examples\structural\flyweight\TeaShop;
 
 echo 'Простая фабрика (simple_factory):<br/>';
 $door = DoorFactory::makeDoor(10, 11);
@@ -127,8 +129,23 @@ echo '<br/>';
 echo $someCoffee->getDescription(); // Simple Coffee, milk, whip, vanilla
 
 
-echo '<hr/>Фасад (facade):<br/>';
+
 $computer = new ComputerFacade(new Computer());
 $computer->turnOn();
 echo '<br/>';
 $computer->turnOff();
+
+echo '<hr/>Приспособленец (flyweight):<br/>';
+
+$teaMaker = new TeaMaker();
+$shop = new TeaShop($teaMaker);
+
+$shop->takeOrder('less sugar', 1);
+$shop->takeOrder('more milk', 2);
+$shop->takeOrder('without sugar', 5);
+
+$shop->serve();
+// Serving tea to table# 1
+// Serving tea to table# 2
+// Serving tea to table# 5
+

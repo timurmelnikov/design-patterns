@@ -16,7 +16,7 @@ class About implements WebPage
 
     public function __construct(Theme $theme)
     {
-         $this->theme = $theme;
+        $this->theme = $theme;
     }
 
     public function getContent()
