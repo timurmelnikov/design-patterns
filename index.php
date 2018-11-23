@@ -26,6 +26,8 @@ use examples\structural\facade\Computer;
 use examples\structural\facade\ComputerFacade;
 use examples\structural\flyweight\TeaMaker;
 use examples\structural\flyweight\TeaShop;
+use examples\structural\proxy\LabDoor;
+use examples\structural\proxy\Security;
 
 echo 'Простая фабрика (simple_factory):<br/>';
 $door = DoorFactory::makeDoor(10, 11);
@@ -149,3 +151,11 @@ $shop->serve();
 // Serving tea to table# 2
 // Serving tea to table# 5
 
+echo '<hr/>Заместитель (proxy):<br/>';
+
+$door = new Security(new LabDoor());
+$door->open('invalid'); // Big no! It ain't possible.
+echo '<br/>';
+$door->open('$ecr@t'); // Opening lab door
+echo '<br/>';
+$door->close(); // Closing lab door
