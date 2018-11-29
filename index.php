@@ -1,6 +1,9 @@
 <?php
 require_once 'vendor/autoload.php';
 
+use examples\behavioral\chain_of_responsibility\Bank;
+use examples\behavioral\chain_of_responsibility\Bitcoin;
+use examples\behavioral\chain_of_responsibility\Paypal;
 use examples\creational\abstract_factory\IronDoorFactory;
 use examples\creational\abstract_factory\WoodenDoorFactory;
 use examples\creational\builder\BurgerBuilder;
@@ -159,3 +162,14 @@ echo '<br/>';
 $door->open('$ecr@t'); // Opening lab door
 echo '<br/>';
 $door->close(); // Closing lab door
+
+echo '<hr/>Цепочка ответственности (Chain of responsibility):<br/>';
+$bank = new Bank(100);          // У банка баланс 100
+$paypal = new Paypal(200);      // У Paypal баланс 200
+$bitcoin = new Bitcoin(300);    // У Bitcoin баланс 300
+
+$bank->setNext($paypal);
+$paypal->setNext($bitcoin);
+
+// Начнём с банка
+$bank->pay(259);
