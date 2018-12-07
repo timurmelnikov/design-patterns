@@ -31,6 +31,11 @@ use examples\structural\flyweight\TeaMaker;
 use examples\structural\flyweight\TeaShop;
 use examples\structural\proxy\LabDoor;
 use examples\structural\proxy\Security;
+use examples\behavioral\command\Bulb;
+use examples\behavioral\command\TurnOn;
+use examples\behavioral\command\TurnOff;
+use examples\behavioral\command\RemoteControl;
+
 
 echo 'Простая фабрика (simple_factory):<br/>';
 $door = DoorFactory::makeDoor(10, 11);
@@ -173,3 +178,15 @@ $paypal->setNext($bitcoin);
 
 // Начнём с банка
 $bank->pay(259);
+
+echo '<hr/>Команда (command):<br/>';
+
+$bulb = new Bulb();
+
+$turnOn = new TurnOn($bulb);
+$turnOff = new TurnOff($bulb);
+
+$remote = new RemoteControl();
+$remote->submit($turnOn); // Лампочка зажглась!
+echo '<br/>';
+$remote->submit($turnOff); // Темнота!
