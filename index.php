@@ -4,6 +4,8 @@ require_once 'vendor/autoload.php';
 use examples\behavioral\chain_of_responsibility\Bank;
 use examples\behavioral\chain_of_responsibility\Bitcoin;
 use examples\behavioral\chain_of_responsibility\Paypal;
+use examples\behavioral\iterator\RadioStation;
+use examples\behavioral\iterator\StationList;
 use examples\creational\abstract_factory\IronDoorFactory;
 use examples\creational\abstract_factory\WoodenDoorFactory;
 use examples\creational\builder\BurgerBuilder;
@@ -139,7 +141,6 @@ echo '<br/>';
 echo $someCoffee->getDescription(); // Simple Coffee, milk, whip, vanilla
 
 
-
 $computer = new ComputerFacade(new Computer());
 $computer->turnOn();
 echo '<br/>';
@@ -190,3 +191,25 @@ $remote = new RemoteControl();
 $remote->submit($turnOn); // Лампочка зажглась!
 echo '<br/>';
 $remote->submit($turnOff); // Темнота!
+
+echo '<hr/>Итератор (iterator):<br/>';
+
+$stationList = new StationList();
+
+$stationList->addStation(new RadioStation(89));
+$stationList->addStation(new RadioStation(101));
+$stationList->addStation(new RadioStation(102));
+$stationList->addStation(new RadioStation(103.2));
+
+foreach ($stationList as $station) {
+    echo $station->getFrequency() . PHP_EOL;
+}
+
+$stationList->removeStation(new RadioStation(102)); // Will remove station 102
+
+echo '<br/>';
+
+foreach ($stationList as $station) {
+    echo $station->getFrequency() . PHP_EOL;
+}
+
