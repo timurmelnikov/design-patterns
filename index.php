@@ -37,6 +37,8 @@ use examples\behavioral\command\Bulb;
 use examples\behavioral\command\TurnOn;
 use examples\behavioral\command\TurnOff;
 use examples\behavioral\command\RemoteControl;
+use examples\behavioral\mediator\ChatRoom;
+use examples\behavioral\mediator\User as UserMediator;
 
 
 echo 'Простая фабрика (simple_factory):<br/>';
@@ -213,3 +215,13 @@ foreach ($stationList as $station) {
     echo $station->getFrequency() . PHP_EOL;
 }
 
+echo '<hr/>Посредник (mediator):<br/>';
+
+$mediator = new ChatRoom();
+
+$john = new UserMediator('John Doe', $mediator);
+$jane = new UserMediator('Jane Doe', $mediator);
+
+$john->send('Hi there!');
+echo '<br/>';
+$jane->send('Hey!');
