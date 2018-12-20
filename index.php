@@ -39,6 +39,7 @@ use examples\behavioral\command\TurnOff;
 use examples\behavioral\command\RemoteControl;
 use examples\behavioral\mediator\ChatRoom;
 use examples\behavioral\mediator\User as UserMediator;
+use examples\behavioral\memento\Editor;
 
 
 echo 'Простая фабрика (simple_factory):<br/>';
@@ -215,7 +216,6 @@ foreach ($stationList as $station) {
     echo $station->getFrequency() . PHP_EOL;
 }
 
-echo '<hr/>Посредник (mediator):<br/>';
 
 $mediator = new ChatRoom();
 
@@ -225,3 +225,27 @@ $jane = new UserMediator('Jane Doe', $mediator);
 $john->send('Hi there!');
 echo '<br/>';
 $jane->send('Hey!');
+
+echo '<hr/>Хранитель (memento):<br/>';
+
+$editor = new Editor();
+
+// Пишем что-нибудь
+$editor->type('This is the first sentence.');
+$editor->type('This is second.');
+
+// Сохранение состояния в: This is the first sentence. This is second.
+$saved = $editor->save();
+
+// Пишем ещё
+$editor->type('And this is third.');
+
+// Output: Содержимое до сохранения
+echo $editor->getContent(); // This is the first sentence. This is second. And this is third.
+
+// Восстанавливаем последнее сохранённое состояние
+$editor->restore($saved);
+echo '<br/>';
+echo $editor->getContent(); // This is the first sentence. This is second.
+
+echo '<hr/>XXX (xxx):<br/>';
