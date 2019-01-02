@@ -40,6 +40,9 @@ use examples\behavioral\command\RemoteControl;
 use examples\behavioral\mediator\ChatRoom;
 use examples\behavioral\mediator\User as UserMediator;
 use examples\behavioral\memento\Editor;
+use examples\behavioral\observer\JobSeeker;
+use examples\behavioral\observer\JobPostings;
+use examples\behavioral\observer\JobPost;
 
 
 echo 'Простая фабрика (simple_factory):<br/>';
@@ -248,4 +251,20 @@ $editor->restore($saved);
 echo '<br/>';
 echo $editor->getContent(); // This is the first sentence. This is second.
 
-echo '<hr/>XXX (xxx):<br/>';
+echo '<hr/>Наблюдатель (observer):<br/>';
+
+// Создаём подписчиков
+$johnDoe = new JobSeeker('John Doe');
+$janeDoe = new JobSeeker('Jane Doe');
+
+// Создаём публикатора и прикрепляем подписчиков
+$jobPostings = new JobPostings();
+$jobPostings->attach($johnDoe);
+$jobPostings->attach($janeDoe);
+
+// Добавляем новую вакансию и смотрим, будут ли уведомлены подписчики
+$jobPostings->addJob(new JobPost('Software Engineer'));
+
+// Output
+// Hi John Doe! New job posted: Software Engineer
+// Hi Jane Doe! New job posted: Software Engineer
