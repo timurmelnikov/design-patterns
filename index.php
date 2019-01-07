@@ -6,6 +6,11 @@ use examples\behavioral\chain_of_responsibility\Bitcoin;
 use examples\behavioral\chain_of_responsibility\Paypal;
 use examples\behavioral\iterator\RadioStation;
 use examples\behavioral\iterator\StationList;
+use examples\behavioral\visitor\Dolphin;
+use examples\behavioral\visitor\Jump;
+use examples\behavioral\visitor\Lion;
+use examples\behavioral\visitor\Monkey;
+use examples\behavioral\visitor\Speak;
 use examples\creational\abstract_factory\IronDoorFactory;
 use examples\creational\abstract_factory\WoodenDoorFactory;
 use examples\creational\builder\BurgerBuilder;
@@ -268,3 +273,27 @@ $jobPostings->addJob(new JobPost('Software Engineer'));
 // Output
 // Hi John Doe! New job posted: Software Engineer
 // Hi Jane Doe! New job posted: Software Engineer
+
+echo '<hr/>Посетитель (visitor):<br/>';
+$monkey = new Monkey();
+$lion = new Lion();
+$dolphin = new Dolphin();
+$speak = new Speak();
+$monkey->accept($speak);    // Уа-уа-уааааа!
+echo '<br/>';
+$lion->accept($speak);      // Ррррррррр!
+echo '<br/>';
+$dolphin->accept($speak);   // Туут тутт туутт!
+echo '<br/>';
+$jump = new Jump();
+$monkey->accept($speak);   // Ooh oo aa aa!
+echo '<br/>';
+$monkey->accept($jump);    // Jumped 20 feet high! on to the tree!
+echo '<br/>';
+$lion->accept($speak);     // Roaaar!
+echo '<br/>';
+$lion->accept($jump);      // Jumped 7 feet! Back on the ground!
+echo '<br/>';
+$dolphin->accept($speak);  // Tuut tutt tuutt!
+echo '<br/>';
+$dolphin->accept($jump);   // Walked on water a little and disappeared
