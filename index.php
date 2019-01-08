@@ -48,6 +48,9 @@ use examples\behavioral\memento\Editor;
 use examples\behavioral\observer\JobSeeker;
 use examples\behavioral\observer\JobPostings;
 use examples\behavioral\observer\JobPost;
+use examples\behavioral\strategy\Sorter;
+use examples\behavioral\strategy\BubbleSortStrategy;
+use examples\behavioral\strategy\QuickSortStrategy;
 
 
 echo 'Простая фабрика (simple_factory):<br/>';
@@ -297,3 +300,14 @@ echo '<br/>';
 $dolphin->accept($speak);  // Tuut tutt tuutt!
 echo '<br/>';
 $dolphin->accept($jump);   // Walked on water a little and disappeared
+
+
+echo '<hr/>Стратегия (strategy):<br/>';
+
+$dataset = [1, 5, 4, 3, 2, 8];
+
+$sorter = new Sorter(new BubbleSortStrategy());
+$sorter->sort($dataset); // Output : Пузырьковая сортировка
+echo '<br/>';
+$sorter = new Sorter(new QuickSortStrategy());
+$sorter->sort($dataset); // Output : Быстрая сортировка
