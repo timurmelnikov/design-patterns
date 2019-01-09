@@ -51,6 +51,10 @@ use examples\behavioral\observer\JobPost;
 use examples\behavioral\strategy\Sorter;
 use examples\behavioral\strategy\BubbleSortStrategy;
 use examples\behavioral\strategy\QuickSortStrategy;
+use examples\behavioral\state\TextEditor;
+use examples\behavioral\state\LowerCase;
+use examples\behavioral\state\UpperCase;
+use examples\behavioral\state\DefaultCase;
 
 
 echo 'Простая фабрика (simple_factory):<br/>';
@@ -103,16 +107,13 @@ var_dump($president1 === $president2); // true
 echo '<hr/>Адаптер (adapter):<br/>';
 $wildDog = new WildDog();
 $wildDogAdapter = new WildDogAdapter($wildDog);
-
 $hunter = new Hunter();
 $hunter->hunt($wildDogAdapter);
 
 echo '<hr/>Мост (bridge):<br/>';
 $darkTheme = new DarkTheme();
-
 $about = new About($darkTheme);
 $careers = new Careers($darkTheme);
-
 echo $about->getContent(); // "About page in Dark Black";
 echo '<br/>';
 echo $careers->getContent(); // "Careers page in Dark Black";
@@ -121,14 +122,11 @@ echo '<hr/>Компоновщик (composite):<br/>';
 // Подготовка сотрудников
 $john = new Developer('John Doe', 12000);
 $jane = new Designer('Jane Doe', 15000);
-
 // Включение их в штат
 $organization = new Organization();
 $organization->addEmployee($john);
 $organization->addEmployee($jane);
-
 echo "Net salaries: " . $organization->getNetSalaries(); // Net Salaries: 27000
-
 
 echo '<hr/>Декоратор (decorator):<br/>';
 $someCoffee = new SimpleCoffee();
@@ -136,46 +134,37 @@ echo $someCoffee->getCost(); // 10
 echo '<br/>';
 echo $someCoffee->getDescription(); // Simple Coffee
 echo '<br/>';
-
 $someCoffee = new MilkCoffee($someCoffee);
 echo $someCoffee->getCost(); // 12
 echo '<br/>';
 echo $someCoffee->getDescription(); // Simple Coffee, milk
 echo '<br/>';
-
 $someCoffee = new WhipCoffee($someCoffee);
 echo $someCoffee->getCost(); // 17
 echo '<br/>';
 echo $someCoffee->getDescription(); // Simple Coffee, milk, whip
 echo '<br/>';
-
 $someCoffee = new VanillaCoffee($someCoffee);
 echo $someCoffee->getCost(); // 20
 echo '<br/>';
 echo $someCoffee->getDescription(); // Simple Coffee, milk, whip, vanilla
-
-
 $computer = new ComputerFacade(new Computer());
 $computer->turnOn();
 echo '<br/>';
 $computer->turnOff();
 
 echo '<hr/>Приспособленец (flyweight):<br/>';
-
 $teaMaker = new TeaMaker();
 $shop = new TeaShop($teaMaker);
-
 $shop->takeOrder('less sugar', 1);
 $shop->takeOrder('more milk', 2);
 $shop->takeOrder('without sugar', 5);
-
 $shop->serve();
 // Serving tea to table# 1
 // Serving tea to table# 2
 // Serving tea to table# 5
 
 echo '<hr/>Заместитель (proxy):<br/>';
-
 $door = new Security(new LabDoor());
 $door->open('invalid'); // Big no! It ain't possible.
 echo '<br/>';
@@ -187,89 +176,66 @@ echo '<hr/>Цепочка ответственности (Chain of responsibilit
 $bank = new Bank(100);          // У банка баланс 100
 $paypal = new Paypal(200);      // У Paypal баланс 200
 $bitcoin = new Bitcoin(300);    // У Bitcoin баланс 300
-
 $bank->setNext($paypal);
 $paypal->setNext($bitcoin);
-
 // Начнём с банка
 $bank->pay(259);
 
 echo '<hr/>Команда (command):<br/>';
-
 $bulb = new Bulb();
-
 $turnOn = new TurnOn($bulb);
 $turnOff = new TurnOff($bulb);
-
 $remote = new RemoteControl();
 $remote->submit($turnOn); // Лампочка зажглась!
 echo '<br/>';
 $remote->submit($turnOff); // Темнота!
 
 echo '<hr/>Итератор (iterator):<br/>';
-
 $stationList = new StationList();
-
 $stationList->addStation(new RadioStation(89));
 $stationList->addStation(new RadioStation(101));
 $stationList->addStation(new RadioStation(102));
 $stationList->addStation(new RadioStation(103.2));
-
 foreach ($stationList as $station) {
     echo $station->getFrequency() . PHP_EOL;
 }
-
 $stationList->removeStation(new RadioStation(102)); // Will remove station 102
-
 echo '<br/>';
-
 foreach ($stationList as $station) {
     echo $station->getFrequency() . PHP_EOL;
 }
-
 
 $mediator = new ChatRoom();
-
 $john = new UserMediator('John Doe', $mediator);
 $jane = new UserMediator('Jane Doe', $mediator);
-
 $john->send('Hi there!');
 echo '<br/>';
 $jane->send('Hey!');
 
 echo '<hr/>Хранитель (memento):<br/>';
-
 $editor = new Editor();
-
 // Пишем что-нибудь
 $editor->type('This is the first sentence.');
 $editor->type('This is second.');
-
 // Сохранение состояния в: This is the first sentence. This is second.
 $saved = $editor->save();
-
 // Пишем ещё
 $editor->type('And this is third.');
-
 // Output: Содержимое до сохранения
 echo $editor->getContent(); // This is the first sentence. This is second. And this is third.
-
 // Восстанавливаем последнее сохранённое состояние
 $editor->restore($saved);
 echo '<br/>';
 echo $editor->getContent(); // This is the first sentence. This is second.
 
 echo '<hr/>Наблюдатель (observer):<br/>';
-
 // Создаём подписчиков
 $johnDoe = new JobSeeker('John Doe');
 $janeDoe = new JobSeeker('Jane Doe');
-
 // Создаём публикатора и прикрепляем подписчиков
 $jobPostings = new JobPostings();
 $jobPostings->attach($johnDoe);
 $jobPostings->attach($janeDoe);
-
 // Добавляем новую вакансию и смотрим, будут ли уведомлены подписчики
 $jobPostings->addJob(new JobPost('Software Engineer'));
 
@@ -301,13 +267,24 @@ $dolphin->accept($speak);  // Tuut tutt tuutt!
 echo '<br/>';
 $dolphin->accept($jump);   // Walked on water a little and disappeared
 
-
 echo '<hr/>Стратегия (strategy):<br/>';
-
 $dataset = [1, 5, 4, 3, 2, 8];
-
 $sorter = new Sorter(new BubbleSortStrategy());
 $sorter->sort($dataset); // Output : Пузырьковая сортировка
 echo '<br/>';
 $sorter = new Sorter(new QuickSortStrategy());
 $sorter->sort($dataset); // Output : Быстрая сортировка
+
+echo '<hr/>Состояние (state):<br/>';
+$editor = new TextEditor(new DefaultCase());
+$editor->type('First line');
+echo '<br/>';
+$editor->setState(new UpperCase());
+$editor->type('Second line');
+echo '<br/>';
+$editor->type('Third line');
+echo '<br/>';
+$editor->setState(new LowerCase());
+$editor->type('Fourth line');
+echo '<br/>';
+$editor->type('Fifth line');
