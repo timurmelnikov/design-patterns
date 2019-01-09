@@ -55,6 +55,8 @@ use examples\behavioral\state\TextEditor;
 use examples\behavioral\state\LowerCase;
 use examples\behavioral\state\UpperCase;
 use examples\behavioral\state\DefaultCase;
+use examples\behavioral\template_method\AndroidBuilder;
+use examples\behavioral\template_method\IosBuilder;
 
 
 echo 'Простая фабрика (simple_factory):<br/>';
@@ -288,3 +290,11 @@ $editor->setState(new LowerCase());
 $editor->type('Fourth line');
 echo '<br/>';
 $editor->type('Fifth line');
+
+echo '<hr/>Шаблонный метод (template_method):<br/>';
+echo '<br/>';
+$androidBuilder = new AndroidBuilder();
+$androidBuilder->build();
+echo '<br/>';
+$iosBuilder = new IosBuilder();
+$iosBuilder->build();
